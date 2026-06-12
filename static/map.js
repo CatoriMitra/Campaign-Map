@@ -12,7 +12,6 @@ const hexes = [];
 
 let selectedHex = null;
 
-let showHexLabels = false;
 let showRegionOverlay = false;
 
 const mapImage = new Image();
@@ -65,12 +64,6 @@ function drawMap() {
     }
 
     drawHexGrid();
-
-    if (showHexLabels) {
-
-        drawHexLabels();
-
-    }
 
     if (selectedHex) {
 
@@ -222,31 +215,6 @@ const rows = Math.ceil(canvas.height / verticalSpacing) + 2;
 
 }
 
-function drawHexLabels() {
-
-    ctx.font =
-        "10px Arial";
-
-    ctx.fillStyle =
-        "black";
-
-    ctx.textAlign =
-        "center";
-
-    for (
-        const hex
-        of hexes
-    ) {
-
-        ctx.fillText(
-            hex.id,
-            hex.x,
-            hex.y + 3
-        );
-
-    }
-
-}
 
 canvas.addEventListener(
     "click",
@@ -414,24 +382,6 @@ function handleAdminClick(event) {
     });
 
 }
-
-// Hex Labels button
-
-document
-.getElementById(
-    "toggleLabels"
-)
-.addEventListener(
-    "click",
-    () => {
-
-        showHexLabels =
-            !showHexLabels;
-
-        drawMap();
-
-    }
-);
 
 // Region Overlay button
 
