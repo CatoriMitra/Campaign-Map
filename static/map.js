@@ -6,7 +6,7 @@ const canvas =
 const ctx =
     canvas.getContext("2d");
 
-const HEX_SIZE = 20;
+const HEX_SIZE = 25;
 
 const hexes = [];
 
