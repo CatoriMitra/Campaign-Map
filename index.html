@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campaign Map</title>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        overflow: hidden; /* prevents page scroll */
+    }
+
+    #controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: rgba(255,255,255,0.9);
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    #hexInfo {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: rgba(255,255,255,0.9);
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 350px;
+    }
+
+    #adminPanel {
+        position: fixed;
+        top: 60px;
+        left: 10px;
+        z-index: 1001;
+        background: #f4f4f4;
+        border: 1px solid #444;
+        padding: 10px;
+        width: 300px;
+        display: none;
+    }
+
+    canvas {
+        display: block;
+    }
+
+    button {
+        margin-right: 8px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Campaign Map</h1>
+
+<!-- CONTROL BAR -->
+<div id="controls">
+
+    <button id="adminBtn">Admin Panel</button>
+
+    <button id="toggleLabels">Hex Labels</button>
+
+    <button id="toggleRegions">Region Overlay</button>
+
+    <!-- INFO -->
+<div id="hexInfo">
+    Click a hex.
+</div>
+
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+
+    <h3>Admin Login</h3>
+
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="loginAdmin()">Login</button>
+
+    <p id="adminStatus"></p>
+
+</div>
+
+<!-- MAP -->
+<canvas id="mapCanvas"></canvas>
+
+<script src="/static/map.js"></script>
+
+</body>
+</html>
