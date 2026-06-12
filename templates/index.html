@@ -27,7 +27,7 @@
             margin-top: 10px;
             padding: 10px;
             border: 1px solid #ccc;
-            width: 350px;
+            width: 400px;
         }
 
         #adminPanel {
@@ -36,7 +36,7 @@
             padding: 10px;
             border: 1px solid #444;
             width: 300px;
-            background: #f8f8f8;
+            background: #f4f4f4;
         }
     </style>
 </head>
@@ -45,24 +45,18 @@
 
 <h1>Campaign Map</h1>
 
-<!-- ✅ THIS is where the admin button goes -->
+<!-- CONTROL BAR -->
 <div id="controls">
 
-    <button id="adminBtn">
-        Admin Panel
-    </button>
+    <button id="adminBtn">Admin Panel</button>
 
-    <button id="toggleLabels">
-        Hex Labels
-    </button>
+    <button id="toggleLabels">Hex Labels</button>
 
-    <button id="toggleRegions">
-        Region Overlay
-    </button>
+    <button id="toggleRegions">Region Overlay</button>
 
 </div>
 
-<!-- Admin login panel (hidden by default) -->
+<!-- ADMIN PANEL -->
 <div id="adminPanel">
 
     <h3>Admin Login</h3>
@@ -70,14 +64,16 @@
     <input id="username" placeholder="Username">
     <input id="password" type="password" placeholder="Password">
 
-    <button onclick="loginAdmin()">
-        Login
-    </button>
+    <button onclick="loginAdmin()">Login</button>
+
+    <p id="adminStatus"></p>
 
 </div>
 
+<!-- MAP -->
 <canvas id="mapCanvas"></canvas>
 
+<!-- INFO -->
 <div id="hexInfo">
     Click a hex.
 </div>
