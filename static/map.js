@@ -6,7 +6,7 @@ const canvas =
 const ctx =
     canvas.getContext("2d");
 
-const HEX_SIZE = 30;
+const HEX_SIZE = 20;
 
 const hexes = [];
 
@@ -161,17 +161,8 @@ function drawHexGrid() {
     const verticalSpacing =
         hexHeight * 0.75;
 
-    const cols =
-        Math.ceil(
-            canvas.width
-            / hexWidth
-        ) + 2;
-
-    const rows =
-        Math.ceil(
-            canvas.height
-            / verticalSpacing
-        ) + 2;
+const cols = Math.ceil(canvas.width / hexWidth) + 2;
+const rows = Math.ceil(canvas.height / verticalSpacing) + 2;
 
     for (
         let row = 0;
@@ -340,9 +331,18 @@ function handleClick(
 
 // Admin button
 
-document.getElementById("adminBtn").onclick = () => {
-    document.getElementById("adminPanel").style.display = "block";
-};
+const adminBtn = document.getElementById("adminBtn");
+const adminPanel = document.getElementById("adminPanel");
+
+adminBtn.addEventListener("click", () => {
+
+    if (adminPanel.style.display === "none" || adminPanel.style.display === "") {
+        adminPanel.style.display = "block";
+    } else {
+        adminPanel.style.display = "none";
+    }
+
+});
 
 async function loginAdmin() {
 

@@ -4,41 +4,53 @@
     <title>Campaign Map</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        overflow: hidden; /* prevents page scroll */
+    }
 
-        #controls {
-            margin-bottom: 10px;
-        }
+    #controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: rgba(255,255,255,0.9);
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
 
-        button {
-            margin-right: 10px;
-            padding: 8px 12px;
-        }
+    #hexInfo {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: rgba(255,255,255,0.9);
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 350px;
+    }
 
-        #mapCanvas {
-            border: 1px solid black;
-            display: block;
-        }
+    #adminPanel {
+        position: fixed;
+        top: 60px;
+        left: 10px;
+        z-index: 1001;
+        background: #f4f4f4;
+        border: 1px solid #444;
+        padding: 10px;
+        width: 300px;
+        display: none;
+    }
 
-        #hexInfo {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            width: 400px;
-        }
+    canvas {
+        display: block;
+    }
 
-        #adminPanel {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #444;
-            width: 300px;
-            background: #f4f4f4;
-        }
-    </style>
+    button {
+        margin-right: 8px;
+    }
+</style>
 </head>
 
 <body>
@@ -53,6 +65,11 @@
     <button id="toggleLabels">Hex Labels</button>
 
     <button id="toggleRegions">Region Overlay</button>
+
+    <!-- INFO -->
+<div id="hexInfo">
+    Click a hex.
+</div>
 
 </div>
 
@@ -72,11 +89,6 @@
 
 <!-- MAP -->
 <canvas id="mapCanvas"></canvas>
-
-<!-- INFO -->
-<div id="hexInfo">
-    Click a hex.
-</div>
 
 <script src="/static/map.js"></script>
 
