@@ -1,0 +1,21 @@
+{
+  "SET0001": {
+    "name": "Winterfell",
+    "hex": "H012007",
+    "type": "Castle",
+    "house": "Stark",
+    "population": 10000,
+    "garrison": 3000,
+    "notes": ""
+  },
+
+  "SET0002": {
+    "name": "White Harbor",
+    "hex": "H025014",
+    "type": "City",
+    "house": "Manderly",
+    "population": 35000,
+    "garrison": 3000,
+    "notes": ""
+  }
+}
