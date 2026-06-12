@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, session, redirect, jsonify
 from engine.auth import validate_admin
 
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 app = Flask(__name__)
 app.secret_key = "change-this-later"
 
