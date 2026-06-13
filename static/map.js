@@ -14,6 +14,10 @@ let selectedHex = null;
 
 let showRegionOverlay = false;
 
+let adminMode = false;
+
+let settlementEditorMode = false;
+
 const mapImage = new Image();
 mapImage.src = "/static/map.jpg";
 
@@ -154,8 +158,17 @@ function drawHexGrid() {
     const verticalSpacing =
         hexHeight * 0.75;
 
-const cols = Math.ceil(canvas.width / hexWidth) + 2;
-const rows = Math.ceil(canvas.height / verticalSpacing) + 2;
+    const cols =
+        Math.ceil(
+            canvas.width /
+            hexWidth
+        ) + 2;
+
+    const rows =
+        Math.ceil(
+            canvas.height /
+            verticalSpacing
+        ) + 2;
 
     for (
         let row = 0;
@@ -214,7 +227,6 @@ const rows = Math.ceil(canvas.height / verticalSpacing) + 2;
     }
 
 }
-
 
 canvas.addEventListener(
     "click",
@@ -295,95 +307,227 @@ function handleClick(
         Y: ${Math.round(nearest.y)}
     `;
 
-}
+    if (
+        adminMode &&
+        settlementEditorMode
+    ) {
 
-// Admin button
+        document
+            .getElementById(
+                "selectedHexDisplay"
+            )
+            .innerText =
+            `Selected Hex: ${nearest.id}`;
 
-const adminBtn = document.getElementById("adminBtn");
-const adminPanel = document.getElementById("adminPanel");
-
-adminBtn.addEventListener("click", () => {
-
-    if (adminPanel.style.display === "none" || adminPanel.style.display === "") {
-        adminPanel.style.display = "block";
-    } else {
-        adminPanel.style.display = "none";
     }
 
-});
+}
+
+// =========================
+// Admin Button
+// =========================
+
+const adminBtn =
+    document.getElementById(
+        "adminBtn"
+    );
+
+const adminPanel =
+    document.getElementById(
+        "adminPanel"
+    );
+
+adminBtn.addEventListener(
+    "click",
+    () => {
+
+        if (
+            adminPanel.style.display === "none" ||
+            adminPanel.style.display === ""
+        ) {
+
+            adminPanel.style.display =
+                "block";
+
+        }
+        else {
+
+            adminPanel.style.display =
+                "none";
+
+        }
+
+    }
+);
 
 async function loginAdmin() {
 
     const username =
-        document.getElementById("username").value;
+        document.getElementById(
+            "username"
+        ).value;
 
     const password =
-        document.getElementById("password").value;
+        document.getElementById(
+            "password"
+        ).value;
 
-    const res = await fetch("/admin/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
+    const res =
+        await fetch(
+            "/admin/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }
+        );
 
     if (res.ok) {
-        alert("Admin access granted");
+
         enableAdminMode();
-    } else {
-        alert("Invalid login");
+
     }
+    else {
+
+        alert(
+            "Invalid login"
+        );
+
+    }
+
 }
 
-let adminMode = false;
-
-function enableAdminMode() {
+function enableAdminMode()
+{
     adminMode = true;
 
-    document.getElementById("adminPanel").style.display = "none";
+    document
+        .getElementById(
+            "adminPanel"
+        )
+        .style.display =
+        "none";
 
-    alert("Admin mode enabled");
+    document
+        .getElementById(
+            "adminTools"
+        )
+        .style.display =
+        "block";
+
+    document
+        .getElementById(
+            "adminStatus"
+        )
+        .innerText =
+        "Logged in as Admin";
 }
 
-canvas.addEventListener("click", (event) => {
+// =========================
+// Settlement Editor
+// =========================
 
-    if (!adminMode) {
-        handleNormalClick(event);
-        return;
-    }
+document
+    .getElementById(
+        "settlementEditorBtn"
+    )
+    .addEventListener(
+        "click",
+        () =>
+        {
 
-    handleAdminClick(event);
-});
+            settlementEditorMode =
+                !settlementEditorMode;
 
-function handleAdminClick(event) {
+            document
+                .getElementById(
+                    "settlementEditor"
+                )
+                .style.display =
+                    settlementEditorMode
+                        ? "block"
+                        : "none";
 
-    const name = prompt("Settlement name?");
-    const type = prompt("Type?");
-    const house = prompt("House?");
-    const population = prompt("Population?");
+        }
+    );
 
-    fetch("/admin/update_settlement", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name,
-            update: {
-                type,
-                house,
-                population
+document
+    .getElementById(
+        "saveSettlement"
+    )
+    .addEventListener(
+        "click",
+        () =>
+        {
+
+            if (!selectedHex)
+            {
+
+                alert(
+                    "Select a hex first."
+                );
+
+                return;
+
             }
-        })
-    });
 
-}
+            const settlement =
+            {
+                hex:
+                    selectedHex.id,
 
-// Region Overlay button
+                name:
+                    document
+                    .getElementById(
+                        "settlementName"
+                    )
+                    .value,
+
+                type:
+                    document
+                    .getElementById(
+                        "settlementType"
+                    )
+                    .value,
+
+                house:
+                    document
+                    .getElementById(
+                        "settlementHouse"
+                    )
+                    .value,
+
+                population:
+                    parseInt(
+                        document
+                        .getElementById(
+                            "settlementPopulation"
+                        )
+                        .value
+                    )
+            };
+
+            console.log(
+                "Settlement Ready:",
+                settlement
+            );
+
+            alert(
+                "Settlement data captured. Check browser console."
+            );
+
+        }
+    );
+
+// =========================
+// Region Overlay Button
+// =========================
 
 document
 .getElementById(
