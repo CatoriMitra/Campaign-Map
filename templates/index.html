@@ -4,89 +4,178 @@
     <title>Campaign Map</title>
 
     <style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    }
 
-    #controls {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-        background: rgba(255,255,255,0.9);
-        padding: 10px;
-        border: 1px solid #ccc;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
 
-    #hexInfo {
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
-        z-index: 1000;
-        background: rgba(255,255,255,0.9);
-        padding: 10px;
-        border: 1px solid #ccc;
-        width: 350px;
-    }
+        #controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
 
-    #adminPanel {
-        position: fixed;
-        top: 60px;
-        left: 10px;
-        z-index: 1001;
-        background: #f4f4f4;
-        border: 1px solid #444;
-        padding: 10px;
-        width: 300px;
-        display: none;
-    }
+            background: rgba(255,255,255,0.95);
 
-    canvas {
-        display: block;
-    }
+            padding: 10px;
 
-    button {
-        margin-right: 8px;
-    }
-</style>
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-right: 8px;
+            margin-bottom: 4px;
+        }
+
+        #adminPanel {
+
+            position: fixed;
+
+            top: 80px;
+            left: 10px;
+
+            z-index: 1001;
+
+            background: #f4f4f4;
+
+            border: 1px solid #444;
+
+            padding: 10px;
+
+            width: 300px;
+
+            display: none;
+
+        }
+
+        #adminTools {
+
+            position: fixed;
+
+            top: 80px;
+            left: 330px;
+
+            z-index: 1001;
+
+            background: #f4f4f4;
+
+            border: 1px solid #444;
+
+            padding: 10px;
+
+            width: 220px;
+
+            display: none;
+
+        }
+
+        #settlementEditor {
+
+            position: fixed;
+
+            top: 80px;
+            left: 570px;
+
+            z-index: 1001;
+
+            background: #f4f4f4;
+
+            border: 1px solid #444;
+
+            padding: 10px;
+
+            width: 300px;
+
+            display: none;
+
+        }
+
+        #hexInfo {
+
+            position: fixed;
+
+            bottom: 10px;
+            left: 10px;
+
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.95);
+
+            border: 1px solid #ccc;
+
+            padding: 10px;
+
+            width: 350px;
+        }
+
+        #mapCanvas {
+            display: block;
+        }
+
+        input,
+        select {
+
+            width: 100%;
+            box-sizing: border-box;
+
+            margin-top: 4px;
+            margin-bottom: 4px;
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<h1>Campaign Map</h1>
+<!-- ================================= -->
+<!-- TOP CONTROL BAR -->
+<!-- ================================= -->
 
-<!-- CONTROL BAR -->
 <div id="controls">
 
-    <button id="adminBtn">Admin Panel</button>
+    <button id="adminBtn">
+        Admin Panel
+    </button>
 
-    <button id="toggleRegions">Region Overlay</button>
+    <button id="toggleRegions">
+        Region Overlay
+    </button>
 
-    <!-- INFO -->
-<div id="hexInfo">
-    Click a hex.
 </div>
 
-</div>
+<!-- ================================= -->
+<!-- ADMIN LOGIN PANEL -->
+<!-- ================================= -->
 
-<!-- ADMIN PANEL -->
 <div id="adminPanel">
 
     <h3>Admin Login</h3>
 
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
+    <input
+        id="username"
+        placeholder="Username">
 
-    <button onclick="loginAdmin()">Login</button>
+    <input
+        id="password"
+        type="password"
+        placeholder="Password">
+
+    <button onclick="loginAdmin()">
+        Login
+    </button>
 
     <p id="adminStatus"></p>
 
 </div>
 
-// ADMIN TOOLS  
+<!-- ================================= -->
+<!-- ADMIN TOOLS -->
+<!-- ================================= -->
 
-<div id="adminTools" style="display:none;">
+<div id="adminTools">
 
     <h3>Admin Tools</h3>
 
@@ -96,20 +185,44 @@
 
 </div>
 
-    <br><br>
+<!-- ================================= -->
+<!-- SETTLEMENT EDITOR -->
+<!-- ================================= -->
+
+<div id="settlementEditor">
+
+    <h3>Settlement Editor</h3>
+
+    <p id="selectedHexDisplay">
+        No hex selected.
+    </p>
+
+    <input
+        id="settlementName"
+        placeholder="Settlement Name">
+
+    <select id="settlementType">
+
+        <option>Castle</option>
+
+        <option>City</option>
+
+        <option>Town</option>
+
+        <option>Village</option>
+
+        <option>Fort</option>
+
+    </select>
 
     <input
         id="settlementHouse"
         placeholder="House">
 
-    <br><br>
-
     <input
         id="settlementPopulation"
         type="number"
         placeholder="Population">
-
-    <br><br>
 
     <button id="saveSettlement">
         Save Settlement
@@ -117,8 +230,21 @@
 
 </div>
 
+<!-- ================================= -->
 <!-- MAP -->
+<!-- ================================= -->
+
 <canvas id="mapCanvas"></canvas>
+
+<!-- ================================= -->
+<!-- HEX INFO -->
+<!-- ================================= -->
+
+<div id="hexInfo">
+
+    Click a hex.
+
+</div>
 
 <script src="/static/map.js"></script>
 
