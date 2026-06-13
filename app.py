@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify, session
 app = Flask(__name__)
 app.secret_key = "dev-secret-change-later"
 
+import json
 
 # -------------------------
 # MAIN MAP PAGE
@@ -15,6 +16,7 @@ def index():
 # -------------------------
 # ADMIN LOGIN (stub for now)
 # -------------------------
+
 @app.route("/admin/login", methods=["POST"])
 def admin_login():
 
@@ -23,12 +25,22 @@ def admin_login():
     username = data.get("username")
     password = data.get("password")
 
-    # TEMP SIMPLE CHECK (replace later with JSON or auth.py)
-    if username == "admin" and password == "admin":
-        session["admin"] = True
-        return jsonify({"success": True})
+    with open("data/admins.json", "r") as f:
+        admins = json.load(f)
 
-    return jsonify({"success": False}), 403
+    if username in admins:
+
+        if admins[username]["password"] == password:
+
+            session["admin"] = True
+
+            return jsonify({
+                "success": True
+            })
+
+    return jsonify({
+        "success": False
+    }), 403
 
 
 # -------------------------
