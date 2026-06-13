@@ -1,6 +1,16 @@
-
 {
-  "Catori": {
-    "password": "CatmitDD26"
-  }
+    "Admin": {
+        "password": "Fallback",
+        "role": "Emergency Admin"
+    },
+
+    "Catori": {
+        "password": "CatMit",
+        "role": "Developer"
+    },
+
+    "Storyteller1": {
+        "password": "TheTrueMVP",
+        "role": "storyteller"
+    }
 }
